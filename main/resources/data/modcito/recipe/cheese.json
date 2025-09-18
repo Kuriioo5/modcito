@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "food",
+  "key": {
+    "A": {
+      "item": "minecraft:milk_bucket"
+    },
+    "B": {
+      "item": "minecraft:dried_kelp"
+    }
+  },
+  "pattern": [
+    "AB"
+  ],
+  "result": {
+    "count": 3,
+    "id": "modcito:cheese"
+  }
+}

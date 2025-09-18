@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "modcito:block/emerald_furnace_front",
+    "side": "modcito:block/emerald_furnace_side",
+    "top": "modcito:block/emerald_furnace_top"
+  }
+}
