@@ -2,11 +2,13 @@ package net.modcito.block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.modcito.Modcito;
+import net.modcito.block.entity.EmeraldFurnaceBlockEntity;
 
 public class ModcitoBlocks {
 
@@ -20,5 +22,11 @@ public class ModcitoBlocks {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
             entries.add(EMERALD_FURNACE);
         });
+
+        EmeraldFurnaceBlock.EMERALD_FURNACE_ENTITY = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(Modcito.MOD_ID, "emerald_furnace"),
+                BlockEntityType.Builder.create(EmeraldFurnaceBlockEntity::new).build(null)
+        );
     }
 }

@@ -14,6 +14,8 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -23,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class EmeraldFurnaceBlock extends AbstractFurnaceBlock {
 
+    public static BlockEntityType<EmeraldFurnaceBlockEntity> EMERALD_FURNACE_ENTITY;
     public static final MapCodec<EmeraldFurnaceBlock> CODEC = createCodec(EmeraldFurnaceBlock::new);
 
     @Override
@@ -42,7 +45,7 @@ public class EmeraldFurnaceBlock extends AbstractFurnaceBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(world, type, BlockEntityType.FURNACE);
+        return validateTicker(world, type, EmeraldFurnaceBlock.EMERALD_FURNACE_ENTITY);
     }
 
     @Override
@@ -50,7 +53,16 @@ public class EmeraldFurnaceBlock extends AbstractFurnaceBlock {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof EmeraldFurnaceBlockEntity) {
             player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
-            player.incrementStat(Stats.INTERACT_WITH_FURNACE);
+        }
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        } else {
+            this.openScreen(world, pos, player);
+            return ActionResult.CONSUME;
         }
     }
 
